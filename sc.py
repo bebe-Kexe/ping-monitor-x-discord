@@ -5,6 +5,14 @@ import asyncio
 import os
 from dotenv import load_dotenv
 
+if os.path.exists(".env_vars"):
+    pass
+else:
+    os.create(".env_vars")
+    with open(".env_vars", "w") as f:
+        f.write("DISCORD_TOKEN=\nCHANNEL_ID=\nUSER_NAME=")
+        print("Please fill in the .env_vars file with the required information")
+
 load_dotenv(".env_vars")
 
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
