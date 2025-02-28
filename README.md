@@ -11,6 +11,7 @@ A Python-based utility that monitors your network ping in real-time and sends al
 - **Custom status** on your Discord bot showing your current ping condition
 - **Configurable thresholds** to match your needs
 - **Robust error handling** to prevent crashes
+- **User-friendly** setup and startup scripts with batch files
 
 ## 📋 Requirements
 
@@ -22,43 +23,44 @@ A Python-based utility that monitors your network ping in real-time and sends al
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/bebe-Kexe/ping-monitor-discord.git
+   git clone https://github.com/bebe-Kexe/ping-monitor-x-discord.git
    cd ping-monitor-discord
    ```
+   - _Full release **WIP**_
 
 2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+   - Simply double-click ``setup.bat``
 
 
+
+
+
+## 💻 Usage
+
+Run the script with:
+
+- Double-click ``start.bat``
+   - If this is your first time running it, a ``.env_vars`` file will be created. Open it with a text editor and specify ``DISCORD_TOKEN``, ``CHANNEL_ID``, and ``USER_NAME`` (optional).
+ 
 
 ## ⚙️ Configuration
 
 Edit the following variables in .env_vars to customize your experience:
 
 ```python
-DISCORD_TOKEN = xxx.yyy.zzz  # Replace with bot token
-CHANNEL_ID = 1234567890      # Replace with channel ID
-USER_NAME = @xxxxxx          # Replace with your username
-HOST_TO_PING = 'google.com'  # The host to monitor
-PING_INTERVAL = 5            # Check interval in seconds
-PING_THRESHOLD = 120         # Alert threshold in milliseconds (ms)
-```
-
-## 💻 Usage
-
-Run the script with:
-
-```bash
-python sc.py
+DISCORD_TOKEN=xxx.yyy.zzz  # Replace with bot token
+CHANNEL_ID=1234567890      # Replace with channel ID
+USER_NAME=@xxxxxx          # Replace with your username (optional)
+HOST_TO_PING=google.com  # The host to monitor
+PING_INTERVAL=5            # Check interval in seconds
+PING_THRESHOLD=120         # Alert threshold in milliseconds (ms)
 ```
 
 The program will:
 1. Connect to Discord using your bot token
 2. Start monitoring ping to the specified host
 3. Send notifications when ping exceeds your threshold
-4. Update the bot's status to reflect current ping conditions (Broken in version 0.7)
+4. Update the bot's status to reflect current ping conditions 
 
 ## 📊 How It Works
 
@@ -75,7 +77,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🤝 Contributing
 
-Contributions welcome! Feel free to open issues or submit pull requests.
+Contributions are welcome! Feel free to open issues or submit pull requests.
 
 ## 🙏 Acknowledgements
 
