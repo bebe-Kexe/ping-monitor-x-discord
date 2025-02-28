@@ -2,7 +2,9 @@
 
 A Python-based utility that monitors your network ping in real-time and sends alerts to Discord when latency exceeds a specified threshold.
 
-![Discord Notification Example](https://media.discordapp.net/attachments/1019689698584690710/1344670229413892107/5f30XFiOJ5aa2uxWJtW1394hrwmwDT5JdPCbIEtaoid7NLOWZhv9wkWCCoAQMxrarmlceEtyhuGaRlDxtUmlsrC9wU8SfJ1V46Qmr6pnBHHZd6daThgEOUKT2luW1a864sir8am5sLhTuQ6hHyFEHgVEs6Hc2FoPD9gQdSaIN6TJb7ldTHxGCVM5rUNFD5.png?ex=67c1c13d&is=67c06fbd&hm=08a9a3b5bc9962838d28694033d5fb0153fb29b4270c43c826ce3584539fc3b5&=)
+<p align="center">
+  <img src="https://media.discordapp.net/attachments/1019689698584690710/1344670229413892107/5f30XFiOJ5aa2uxWJtW1394hrwmwDT5JdPCbIEtaoid7NLOWZhv9wkWCCoAQMxrarmlceEtyhuGaRlDxtUmlsrC9wU8SfJ1V46Qmr6pnBHHZd6daThgEOUKT2luW1a864sir8am5sLhTuQ6hHyFEHgVEs6Hc2FoPD9gQdSaIN6TJb7ldTHxGCVM5rUNFD5.png?ex=67c1c13d&is=67c06fbd&hm=08a9a3b5bc9962838d28694033d5fb0153fb29b4270c43c826ce3584539fc3b5&=" alt="Discord Notification Example">
+</p>
 
 ## 🌟 Features
 
