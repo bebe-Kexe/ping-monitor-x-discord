@@ -82,11 +82,7 @@ Planned features and improvements for upcoming releases:
 - [x] More user friendly setup and startup
 - [x] Bot mentions discord user in high ping alert message
 - [ ] Bot counts how long did it took for ping to settle 
-- [ ] **Split Bulk Delete and Individual Delete**: Implement a two-phase message deletion system that:
-      - First identifies messages newer than 14 days and deletes them in bulk (fast)
-      - Then handles older messages individually with proper rate limiting (slower)
-      - Provides real-time progress feedback to users during deletion
-      - Allows cancelling long-running deletion operations
+- [ ] Split /clear command to Bulk Delete and Individual Delete 
 - [ ] Docker container support  
 - [ ] Cross-platform compatibility (Linux, Windows)
 - [ ] Bot sends high ping message to multiple channels
