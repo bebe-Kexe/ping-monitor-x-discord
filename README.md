@@ -74,13 +74,24 @@ The program will:
 3. Send notifications when ping exceeds your threshold
 4. Update the bot's status to reflect current ping conditions 
 
-## 📊 How It Works
 
-1. The script uses `ping3` library to measure network latency to a target host
-2. When latency exceeds the threshold, a Discord webhook is triggered
-3. A rich embed is sent to your specified Discord channel with ping information
-4. The Discord bot status is updated to reflect the current situation
-5. When ping returns to normal levels, the status is updated accordingly
+
+## 🔮 Future Goals
+Planned features and improvements for upcoming releases:
+
+- [x] More user friendly setup and startup
+- [x] Bot mentions discord user in high ping alert message
+- [ ] Bot counts how long did it took for ping to settle 
+- [ ] **Split Bulk Delete and Individual Delete**: Implement a two-phase message deletion system that:
+      - First identifies messages newer than 14 days and deletes them in bulk (fast)
+      - Then handles older messages individually with proper rate limiting (slower)
+      - Provides real-time progress feedback to users during deletion
+      - Allows cancelling long-running deletion operations
+- [ ] Docker container support  
+- [ ] Cross-platform compatibility (Linux, Windows)
+- [ ] Bot sends high ping message to multiple channels
+
+Got an idea or feature request? Feel free to open an [issue](https://github.com/bebe-Kexe/ping-monitor-x-discord/issues)
 
 
 
@@ -96,16 +107,6 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 
 - [ping3](https://github.com/kyan001/ping3) for the ping implementation
 - [discord.py](https://github.com/Rapptz/discord.py) for the Discord API wrapper
-
-## 🔮 Future Goals
-Planned features and improvements for upcoming releases:
-
-- [x] More user friendly setup and startup
-- [ ] Bot mentions discord user in high ping alert message
-- [ ] Docker container support  
-- [ ] Cross-platform compatibility (Linux, Windows)
-
-Got an idea or feature request? Feel free to open an [issue](https://github.com/bebe-Kexe/ping-monitor-x-discord/issues)
 
 ---
 
