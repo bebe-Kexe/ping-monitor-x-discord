@@ -8,9 +8,10 @@ import os
 from dotenv import load_dotenv
 import sys
 
+# Checks if .env_vars file exists
 if os.path.exists(".env_vars"):
     pass
-else:
+else: #If not, creates the .env_vars file
     with open(".env_vars", "w") as f:
         f.write("DISCORD_TOKEN=xxx.yyy.zzz\nCHANNEL_ID=1234567890\nUSER_ID=1234567890\nHOST_TO_PING=google.com\nPING_INTERVAL=5\nPING_THRESHOLD=120\n")
         print("\n.env_vars file created\n")
@@ -18,7 +19,7 @@ else:
         sys.exit()
         
 load_dotenv(".env_vars")
-
+#Loads all essentials from config
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 CHANNEL_ID = int(os.getenv("CHANNEL_ID"))
 USER_ID = os.getenv("USER_ID")
@@ -130,7 +131,7 @@ class PingMonitor:
                         return True
                     return False
                     
-                await interaction.followup.send(f"Deleting {amount} messages... Note that messages older than 14 days will delete slowly and you may encounter an error.", ephemeral=True)
+                await interaction.followup.send(f"Deleting {amount} messages... Note that messages older than 14 days will delete slowly and you may encounter rate limit or an error.", ephemeral=True)
                 deleted = await interaction.channel.purge(limit=amount, check=is_deletable)
 
                 await interaction.followup.send(f"Successfully cleared {len(deleted)} messages", ephemeral=True)
@@ -248,11 +249,18 @@ class PingMonitor:
             print(f"\nError sending discord notification: {e}\n")
 
 
-    async def run(self):
+    async def start(self):
         await self.setup()
         print(f"Registered commands: {[cmd.name for cmd in self.client.tree.get_commands()]}")
-        await self.client.start(DISCORD_TOKEN)
+        try:
+            await self.client.start(DISCORD_TOKEN)
+        except Exception as e:
+            print(f"\nERROR WHILE STARTING DISCORD CLIENT!!! {e}\n")
+            await self.client.close()
+            print("\nEXITTING...\n")
+            await asyncio.sleep(5)
+            sys.exit()
 
 if __name__ == '__main__':
     monitor = PingMonitor()
-    asyncio.run(monitor.run())
+    asyncio.run(monitor.start())

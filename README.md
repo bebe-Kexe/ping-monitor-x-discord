@@ -72,20 +72,21 @@ The program will:
 1. Connect to Discord using your bot token
 2. Start monitoring ping to the specified host
 3. Send notifications when ping exceeds your threshold
-4. Update the bot's status to reflect current ping conditions 
+4. Update the bot's status to reflect current ping conditions
 
 
 
 ## 🔮 Future Goals
 Planned features and improvements for upcoming releases:
 
-- [x] More user friendly setup and startup
-- [x] Bot mentions discord user in high ping alert message
-- [ ] Bot counts how long did it took for ping to settle 
-- [ ] Split /clear command to Bulk Delete and Individual Delete 
-- [ ] Docker container support  
-- [ ] Cross-platform compatibility (Linux, Windows)
-- [ ] Bot sends high ping message to multiple channels
+- [x] More user friendly setup and startup - **``v1.4.0``**
+- [x] Bot mentions discord user in high ping alert message - **``v2.0.0``**
+- [ ] Bot counts how long did it took for ping to settle  - **``Planned to come before v2.5.0``**
+- [ ] Better UI for startup and setup - **``Planned to come until v3.0.0``**
+- [ ] Create daily, weekly or monthly leader board which displays the highest ping recorded (make it somehow multi-user) - **``Planned to come in the future but I have to figure out if it is possible``**
+- [ ] Docker container support - **``N/A``**
+- [ ] Cross-platform compatibility (Linux, Windows) - **``N/A``**
+- [ ] Split /clear command to Bulk Delete and Individual Delete - **``N/A``**
 
 Got an idea or feature request? Feel free to open an [issue](https://github.com/bebe-Kexe/ping-monitor-x-discord/issues)
 
