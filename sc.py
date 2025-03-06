@@ -13,7 +13,7 @@ if os.path.exists(".env_vars"):
     pass
 else: #If not, creates the .env_vars file
     with open(".env_vars", "w") as f:
-        f.write("DISCORD_TOKEN=xxx.yyy.zzz\nCHANNEL_ID=1234567890\nUSER_ID=1234567890\nHOST_TO_PING=google.com\nPING_INTERVAL=5\nPING_THRESHOLD=120\n")
+        f.write("DISCORD_TOKEN=xxx.yyy.zzz\nCHANNEL_ID=1234567890\nUSER_ID=1234567890\nHOST_TO_PING=google.com\nPING_INTERVAL=5 #seconds\nPING_THRESHOLD=120 #milliseconds\n")
         print("\n.env_vars file created\n")
         print("Please fill in the .env_vars file with the required information\n")
         sys.exit()
@@ -45,8 +45,10 @@ class PingMonitor:
         self.client = commands.Bot(command_prefix="?", intents=intents)
         self.high_ping_start_time = None
         self.normal_ping_start_time = None
+        self.high_ping_detected_time = None
         self.username = None
         
+
         ping_monitor = self
 
         @self.client.event
@@ -103,7 +105,7 @@ class PingMonitor:
         
         @self.client.tree.command(
             name="clear",
-            description="Clear a specific number of messages. Note that messages older than 14 days are going to be deleted really slowly and you may encounter an error."
+            description="Clear a specific number of messages."
             )
         @app_commands.describe(amount="Number of messages to clear (1-100)")
         async def clear(interaction: discord.Interaction, amount: int):
@@ -191,27 +193,35 @@ class PingMonitor:
                     self.normal_ping_start_time = None
                     global high_ping_notifies
 
-                    if not high_ping_notifies:
+
+                    if self.high_ping_start_time is None:
+                        self.high_ping_start_time = current_time
+                        print(f"Potential high ping detected: {ping_time:.2f}ms, waiting to confirm...")
+                    elif current_time - self.high_ping_start_time >= 5 and not high_ping_notifies:
+                        elapsed = current_time - self.high_ping_start_time
                         await self.send_notifications(ping_time)
                         await self.set_high_ping_status()
                         high_ping_notifies = True
-                        print(f"High ping detected: {ping_time:.2f}ms")
+                        print(f"ALERT! High ping CONFIRMED after {elapsed:.2f}: {ping_time:.2f}ms!")
                 else:
-                    self.high_ping_start_time = None
                     if high_ping_notifies:
-                        if self.normal_ping_start_time is None:
-                            self.normal_ping_start_time = current_time
+                        if self.high_ping_start_time is None:
+                            self.high_ping_start_time = current_time
                         if current_time - self.normal_ping_start_time >= 5:
-                            print("Ping returned to normal levels")
+                            print(f"Ping returned to normal levels after {elapsed}")
                             await self.set_normal_ping_status()
                             high_ping_notifies = False
                             self.normal_ping_start_time = None
+                    elif self.high_ping_start_time is not None:
+                        elapsed = current_time - self.high_ping_start_time
+                        print(f"High ping wasn't confirmed after {elapsed:.2f} seconds")
+                        self.high_ping_start_time = None
         
             await asyncio.sleep(PING_INTERVAL)
 
     async def check_ping(self):
         try:
-            result = ping(HOST_TO_PING, timeout=2)
+            result = ping(HOST_TO_PING, timeout=PING_INTERVAL)
             if result is not None:
                 return result*1000
             else:

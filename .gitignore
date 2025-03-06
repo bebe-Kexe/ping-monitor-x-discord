@@ -1,7 +1,9 @@
 .env_vars
+.env 
 *.token
 *.key
 *.secret
 *.env_vars
+*.env
 __pycache__/
 *.log
