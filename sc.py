@@ -208,13 +208,14 @@ class PingMonitor:
                         if self.normal_ping_start_time is None:
                             self.normal_ping_start_time = current_time
 
-                            elapsed_normal = current_time - self.high_ping_start_time
+                        elapsed_normal = current_time - self.normal_ping_start_time
 
                         if elapsed_normal >= 5:
                             print(f"Ping returned to normal levels after {elapsed_normal:.2f} seconds")
                             await self.set_normal_ping_status()
                             high_ping_notifies = False
                             self.normal_ping_start_time = None
+                            self.high_ping_start_time = None
                     elif self.high_ping_start_time is not None:
                         elapsed = current_time - self.high_ping_start_time
                         print(f"High ping wasn't confirmed after {elapsed:.2f} seconds")
