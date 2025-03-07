@@ -13,8 +13,8 @@ if os.path.exists(".env_vars"):
     pass
 else: #If not, creates the .env_vars file
     with open(".env_vars", "w") as f:
-        f.write("DISCORD_TOKEN=xxx.yyy.zzz\nCHANNEL_ID=1234567890\nUSER_ID=1234567890\nHOST_TO_PING=google.com\nPING_INTERVAL=5 #seconds\nPING_THRESHOLD=120 #milliseconds\n")
-        print("\n.env_vars file created\n")
+        f.write("DISCORD_TOKEN=xxx.yyy.zzz\nCHANNEL_ID=1234567890\nUSER_ID=1234567890\nHOST_TO_PING=google.com\nPING_INTERVAL=5 #seconds\nPING_THRESHOLD=120 #milliseconds\nDISCORD_USER_MENTION=True #default true\n")
+        print("\n \033[92m[SUCCESS!]\033[0m .env_vars file created\n")
         print(" \033[93m[NOTICE!]\033[0m Please fill in the .env_vars file with the required information\n")
         sys.exit()
         
@@ -26,6 +26,7 @@ USER_ID = os.getenv("USER_ID")
 HOST_TO_PING = os.getenv("HOST_TO_PING")
 PING_INTERVAL = int(os.getenv("PING_INTERVAL"))
 PING_THRESHOLD = int(os.getenv("PING_THRESHOLD"))
+DISCORD_USER_MENTION= os.getenv("DISCORD_USER_MENTION").lower() in ('true')
 
 high_ping_notifies = False 
 
@@ -80,11 +81,14 @@ class PingMonitor:
             try:
                 current_time = time.strftime("%Y-%m-%d %H:%M:%S")
                 ping_time = await ping_monitor.check_ping()
-                user_mention = f"<@{USER_ID}>" if USER_ID else f"@{self.username}"
+
+                user_mention = ""
+                if DISCORD_USER_MENTION:
+                    user_mention = f"<@{USER_ID}>" if USER_ID else f"@{self.username}"
 
                 embed = discord.Embed(
                     title="⚠️ High Ping Alert",
-                    description=f"High ping detected to {HOST_TO_PING} {user_mention}",
+                    description=f"High ping detected to {HOST_TO_PING}",
                     color=discord.Color.red()
                 )
 
@@ -93,8 +97,9 @@ class PingMonitor:
                 embed.add_field(name="Time", value=current_time, inline=False)
                 embed.set_footer(text="This is a test message")
 
-                await interaction.response.send_message(embed=embed, ephemeral=True)
-                print("\nCommand response sent successfully\n")
+                await interaction.response.send_message(user_mention, embed=embed, ephemeral=True)
+
+                print("\n \033[92m[SUCCESS!]\033[0m Command response sent successfully\n")
             except Exception as e:
                 print(f"\n \033[91[Error!]\033[0m Error while sending command response: {e}\n")
                 try:
@@ -137,7 +142,7 @@ class PingMonitor:
                 deleted = await interaction.channel.purge(limit=amount, check=is_deletable)
 
                 await interaction.followup.send(f"Successfully cleared {len(deleted)} messages", ephemeral=True)
-                print(f"\nSuccessfully cleared {len(deleted)} messages\n")
+                print(f"\n \033[92m[SUCCESS!]\033[0m Successfully cleared {len(deleted)} messages\n")
                 
             except discord.errors.Forbidden:
                 await interaction.followup.send("I don't have permission to delete messages", ephemeral=True)
@@ -187,7 +192,11 @@ class PingMonitor:
 
             if ping_time is not None:
                 current_time = time.time()
-                print(f"Current ping: {ping_time:.2f}ms")
+
+                if ping_time > PING_THRESHOLD:
+                    print(f" \033[38;2;255;140;0m[HIGH]\033[0m Current ping: {ping_time:.2f}ms")
+                else:
+                    print(f" \033[92m[OK]\033[0m Current ping: {ping_time:.2f}ms")
 
                 if ping_time > PING_THRESHOLD:
                     self.normal_ping_start_time = None
@@ -246,7 +255,9 @@ class PingMonitor:
         
             current_time = time.strftime("%Y-%m-%d %H:%M:%S")
 
-            user_mention = f"<@{USER_ID}>" if USER_ID else f"@{self.username}"
+            user_mention = ""
+            if DISCORD_USER_MENTION:
+                user_mention = f"<@{USER_ID}>" if USER_ID else f"@{self.username}"
 
             embed = discord.Embed(
                 title="⚠️ High Ping Alert",
