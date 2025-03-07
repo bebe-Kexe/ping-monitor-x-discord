@@ -15,7 +15,7 @@ else: #If not, creates the .env_vars file
     with open(".env_vars", "w") as f:
         f.write("DISCORD_TOKEN=xxx.yyy.zzz\nCHANNEL_ID=1234567890\nUSER_ID=1234567890\nHOST_TO_PING=google.com\nPING_INTERVAL=5 #seconds\nPING_THRESHOLD=120 #milliseconds\n")
         print("\n.env_vars file created\n")
-        print("Please fill in the .env_vars file with the required information\n")
+        print(" \033[93m[NOTICE!]\033[0m Please fill in the .env_vars file with the required information\n")
         sys.exit()
         
 load_dotenv(".env_vars")
@@ -35,7 +35,7 @@ class PingMonitor:
             user = await self.client.fetch_user(int(user_id))
             return user.name
         except Exception as e:
-            print(f"Error fetching username: {e}")
+            print(f" \033[91[Error!]\033[0m Error fetching username: {e}")
             return "User"
 
 
@@ -53,13 +53,13 @@ class PingMonitor:
 
         @self.client.event
         async def on_ready():
-            print(f'\nLogged in as {self.client.user}')
+            print(f'\n \033[93m[NOTICE!]\033[0m Logged in as {self.client.user}')
 
             try:
                 await self.client.tree.sync()
-                print("\nSlash commands synced")
+                print("\n \033[93m[NOTICE!]\033[0m Slash commands synced")
             except Exception as e:
-                print(f"\nError while syncing slash commands: {e}")
+                print(f"\n \033[91[Error!]\033[0m Error while syncing slash commands: {e}")
 
             if USER_ID:
                 self.username = await self.get_username_from_id(USER_ID)
@@ -96,7 +96,7 @@ class PingMonitor:
                 await interaction.response.send_message(embed=embed, ephemeral=True)
                 print("\nCommand response sent successfully\n")
             except Exception as e:
-                print(f"\nError while sending command response: {e}\n")
+                print(f"\n \033[91[Error!]\033[0m Error while sending command response: {e}\n")
                 try:
                     await interaction.response.send_message(f"Error while sending command response {e}", ephemeral=True)
                 except:
@@ -141,10 +141,10 @@ class PingMonitor:
                 
             except discord.errors.Forbidden:
                 await interaction.followup.send("I don't have permission to delete messages", ephemeral=True)
-                print("\nError: Missing permissions to delete messages\n")
+                print("\n \033[91[Error!]\033[0m Error: Missing permissions to delete messages\n")
                 
             except Exception as e:
-                print(f"\nError while clearing messages: {e}\n")
+                print(f"\n \033[91[Error!]\033[0m Error while clearing messages: {e}\n")
                 try:
                     await interaction.followup.send(f"Error while clearing messages: {e}", ephemeral=True)
                 except:
@@ -175,8 +175,8 @@ class PingMonitor:
         pass
 
     async def start_monitoring(self):
-        print (f"\nStarting ping monitoring to {HOST_TO_PING} every {PING_INTERVAL} seconds")
-        print (f"\nNotification threshold is {PING_THRESHOLD} ms\n")
+        print (f"\n \033[93m[NOTICE!]\033[0m Starting ping monitoring to {HOST_TO_PING} every {PING_INTERVAL} seconds")
+        print (f"\n \033[93m[NOTICE!]\033[0m Notification threshold is {PING_THRESHOLD} ms\n")
 
         current_time = time.time()
         self.high_ping_start_time = None
@@ -196,13 +196,13 @@ class PingMonitor:
 
                     if self.high_ping_start_time is None:
                         self.high_ping_start_time = current_time
-                        print(f"Potential high ping detected: {ping_time:.2f}ms, waiting to confirm...")
+                        print(f" \033[93m[NOTICE!]\033[0m Potential high ping detected: {ping_time:.2f}ms, waiting to confirm...")
                     elif current_time - self.high_ping_start_time >= 5 and not high_ping_notifies:
                         elapsed = current_time - self.high_ping_start_time
                         await self.send_notifications(ping_time)
                         await self.set_high_ping_status()
                         high_ping_notifies = True
-                        print(f"ALERT! High ping CONFIRMED after {elapsed:.2f}: {ping_time:.2f}ms!")
+                        print(f" \033[91m[ALERT!]\033[0m High ping CONFIRMED after {elapsed:.2f}s: {ping_time:.2f}ms")
                 else:
                     if high_ping_notifies:
                         if self.normal_ping_start_time is None:
@@ -211,14 +211,15 @@ class PingMonitor:
                         elapsed_normal = current_time - self.normal_ping_start_time
 
                         if elapsed_normal >= 5:
-                            print(f"Ping returned to normal levels after {elapsed_normal:.2f} seconds")
+                            high_ping_duration = current_time - self.high_ping_start_time
+                            print(f" \033[93m[NOTICE!]\033[0m Ping returned to normal levels after {high_ping_duration:.2f} seconds")
                             await self.set_normal_ping_status()
                             high_ping_notifies = False
                             self.normal_ping_start_time = None
                             self.high_ping_start_time = None
                     elif self.high_ping_start_time is not None:
                         elapsed = current_time - self.high_ping_start_time
-                        print(f"High ping wasn't confirmed after {elapsed:.2f} seconds")
+                        print(f" \033[93m[NOTICE!]\033[0m High ping wasn't confirmed after {elapsed:.2f} seconds")
                         self.high_ping_start_time = None
         
             await asyncio.sleep(PING_INTERVAL)
@@ -229,10 +230,10 @@ class PingMonitor:
             if result is not None:
                 return result*1000
             else:
-                print(f"\nFailed to ping {HOST_TO_PING}\n")
+                print(f"\n \033[93m[NOTICE!]\033[0m Failed to ping {HOST_TO_PING}\n")
                 return None
         except Exception as e:
-            print(f"\nError while pinging: {e}\n")
+            print(f"\n \033[91[Error!]\033[0m Error while pinging: {e}\n")
             return None
     
     async def send_notifications(self, ping_time):
@@ -240,7 +241,7 @@ class PingMonitor:
             channel = self.client.get_channel(CHANNEL_ID)
 
             if channel is None:
-                print(f"\nError: Could not find Discord channel with ID {CHANNEL_ID}\n")
+                print(f"\n \033[91[Error!]\033[0m Error: Could not find Discord channel with ID {CHANNEL_ID}\n")
                 return
         
             current_time = time.strftime("%Y-%m-%d %H:%M:%S")
@@ -260,16 +261,16 @@ class PingMonitor:
             await channel.send(user_mention, embed=embed)
 
         except Exception as e:
-            print(f"\nError sending discord notification: {e}\n")
+            print(f"\n \033[91[Error!]\033[0m Error sending discord notification: {e}\n")
 
 
     async def start(self):
         await self.setup()
-        print(f"Registered commands: {[cmd.name for cmd in self.client.tree.get_commands()]}")
+        print(f" \033[93m[NOTICE!]\033[0m Registered commands: {[cmd.name for cmd in self.client.tree.get_commands()]}")
         try:
             await self.client.start(DISCORD_TOKEN)
         except Exception as e:
-            print(f"\nERROR WHILE STARTING DISCORD CLIENT!!! {e}\n")
+            print(f"\n \033[91[Error!]\033[0m ERROR WHILE STARTING DISCORD CLIENT!!! {e}\n")
             await self.client.close()
             print("\nEXITTING...\n")
             await asyncio.sleep(5)
