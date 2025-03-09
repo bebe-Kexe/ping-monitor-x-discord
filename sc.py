@@ -13,7 +13,7 @@ if os.path.exists(".env_vars"):
     pass
 else: #If not, creates the .env_vars file
     with open(".env_vars", "w") as f:
-        f.write("DISCORD_TOKEN=xxx.yyy.zzz\nCHANNEL_ID=1234567890\nUSER_ID=1234567890\nHOST_TO_PING=google.com\nPING_INTERVAL=5 #seconds\nPING_THRESHOLD=120 #milliseconds\nDISCORD_USER_MENTION=True #default true\n")
+        f.write("DISCORD_TOKEN=xxx.yyy.zzz #Replace with your bot token\nCHANNEL_ID=1234567890 #Replace with channel ID\nUSER_ID=1234567890 #Replace with your user ID\nHOST_TO_PING=google.com #Host to monitor\nPING_INTERVAL=5 #Check interval in seconds\nPING_THRESHOLD=120 #Alert threshold in milliseconds\nDISCORD_USER_MENTION=True #If the bot mentions you in alert message (default true)\n")
         print("\n \033[92m[SUCCESS!]\033[0m .env_vars file created\n")
         print(" \033[93m[NOTICE!]\033[0m Please fill in the .env_vars file with the required information\n")
         sys.exit()
