@@ -81,7 +81,7 @@ Planned features and improvements for upcoming releases:
 
 - [x] More user friendly setup and startup - **``v1.4.0.``**
 - [x] Bot mentions discord user in high ping alert message - **``v2.0.0.``**
-- [ ] Bot counts how long did it took for ping to settle  - **``Planned to be implemented before v3.0.0.``**
+- [ ] Bot edits message so it shows how long did it take for ping to settle  - **``Planned to be implemented before v3.0.0.``**
 - [ ] Better UI for startup and setup - **``Planned to be implemented after v3.0.0.``**
 - [ ] Optimize code **``Planned to be implemented in the near future.``**
 - [ ] Create daily, weekly or monthly leader board which displays the highest ping recorded (make it somehow multi-user) - **``Planned for the distant future, pending feasibility.``**
