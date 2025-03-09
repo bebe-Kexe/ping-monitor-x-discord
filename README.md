@@ -79,24 +79,26 @@ The program will:
 ## 🔮 Future Goals
 Planned features and improvements for upcoming releases:
 
-- [x] More user friendly setup and startup
-  - **``v1.4.0.``**
-- [x] Bot mentions discord user in high ping alert message
+* [X] ~~*More user friendly setup and startup*~~
+  - **``[v1.4.0.]``**
+* [X] ~~*Bot mentions discord user in high ping alert message*~~
   - **``v2.0.0.``**
-- [ ] Bot edits message so it shows how long did it take for ping to settle
+* [ ] Bot edits message so it shows how long did it take for ping to settle
   - **``Planned to be implemented before v3.0.0.``**
-- [ ] Better UI for startup and setup
+* [ ] Better UI for startup and setup
   - **``Planned to be implemented after v3.0.0.``**
-- [ ] Optimize code
+* [ ] Optimize code
   - **``Planned to be implemented in the near future.``**
-- [ ] Create weekly or monthly leader board which displays the highest ping recorded (make it somehow multi-user)
+* [ ] Create weekly or monthly leader board which displays the highest ping recorded (make it somehow multi-user)
   - **``Planned for the distant future, pending feasibility.``**
-- [ ] Docker container support
+* [ ] Docker container support
   - **``N/A``**
-- [ ] Cross-platform compatibility (Linux, Windows)
+* [ ] Cross-platform compatibility (Linux, Windows)
   - **``N/A``**
-- [ ] Split /clear command to Bulk Delete and Individual Delete
+* [ ] Split /clear command to Bulk Delete and Individual Delete
   - **``N/A``**
+
+
 
 Got an idea or feature request? Feel free to open an [issue](https://github.com/bebe-Kexe/ping-monitor-x-discord/issues)
 
