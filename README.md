@@ -75,7 +75,7 @@ Planned features and improvements for upcoming releases:
 - [X] ~~*More user friendly setup and startup*~~
   - **``v1.4.0.``**
 - [X] ~~*Bot mentions discord user in high ping alert message*~~
-  - **``v2.0.0.``**
+  - **``v2.5.0.``**
 - [ ] Bot edits message so it shows how long did it take for ping to settle
   - **``Planned to be implemented before v3.0.0.``**
 - [ ] Better UI for startup and setup
