@@ -52,13 +52,18 @@ Run the script with:
 Edit the following variables in .env_vars to customize your experience:
 
 ```.env_vars
-DISCORD_TOKEN=xxx.yyy.zzz  # Replace with bot token
+DISCORD_ENABLED=True #If you want to have discord features enabled (default true)
+
+# (DISCORD_ENABLED must be set to 'true' for these features to work!)
+DISCORD_TOKEN=xxx.yyy.zzz  #Replace with your bot token 
 CHANNEL_ID=1234567890      # Replace with channel ID
 USER_ID=1234567890         # Replace with your username (optional)
+DISCORD_USER_MENTION=True  #If the bot mentions you in alert message (default true)
+
+# (Default ping config)
 HOST_TO_PING=google.com    # The host to monitor
 PING_INTERVAL=5            # Check interval in seconds
-PING_THRESHOLD=120         # Alert threshold in milliseconds (ms)
-DISCORD_USER_MENTION=True  #If the bot mentions you in alert message (default true)
+PING_THRESHOLD=120         # Alert threshold in milliseconds
 ```
 
 The program will:

@@ -13,7 +13,18 @@ if os.path.exists(".env_vars"):
     pass
 else: 
     with open(".env_vars", "w") as f:
-        f.write("DISCORD_TOKEN=xxx.yyy.zzz #Replace with your bot token\nCHANNEL_ID=1234567890 #Replace with channel ID\nUSER_ID=1234567890 #Replace with your user ID\nHOST_TO_PING=google.com #Host to monitor\nPING_INTERVAL=5 #Check interval in seconds\nPING_THRESHOLD=120 #Alert threshold in milliseconds\nDISCORD_USER_MENTION=True #If the bot mentions you in alert message (default true)\n")
+        f.write(
+            "DISCORD_ENABLED=True #If you want to have discord features enabled (default true)"
+            "\n\n# (DISCORD_ENABLED must be set to 'true' for these features to work!)"
+            "\nDISCORD_TOKEN=xxx.yyy.zzz #Replace with your bot token"
+            "\nCHANNEL_ID=1234567890 #Replace with channel ID",
+            "\nUSER_ID=1234567890 #Replace with your user ID",
+            "\nDISCORD_USER_MENTION=True #If the bot mentions you in alert message (default true)",
+            "\n\n# (Default ping config)"
+            "\nHOST_TO_PING=google.com #Host to monitor",
+            "\nPING_INTERVAL=5 #Check interval in seconds",
+            "\nPING_THRESHOLD=120 #Alert threshold in milliseconds",
+            "\n")
         print("\n \033[92m[SUCCESS!]\033[0m .env_vars file created\n")
         print(" \033[93m[NOTICE!]\033[0m Please fill in the .env_vars file with the required information\n")
         sys.exit()
@@ -114,6 +125,9 @@ class PingMonitor:
         @app_commands.describe(amount="Number of messages to clear (1-100)")
         async def clear(interaction: discord.Interaction, amount: int):
             try:
+                if str(interaction.user.id) != USER_ID:
+                    await interaction.response.send_message("You are not authorized to use this command", ephemeral=True)
+                    return
                 if amount <= 0 or amount > 100:
                     await interaction.response.send_message("Please provide a number between 1 and 100", ephemeral=True)
                     return
