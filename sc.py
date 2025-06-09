@@ -30,6 +30,7 @@ else:
         sys.exit()
         
 load_dotenv(".env_vars")
+DISCORD_ENABLED = os.getenv("DISCORD_ENABLED").lower() in ('true')
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 CHANNEL_ID = int(os.getenv("CHANNEL_ID"))
 USER_ID = os.getenv("USER_ID")
@@ -39,7 +40,6 @@ PING_THRESHOLD = int(os.getenv("PING_THRESHOLD"))
 DISCORD_USER_MENTION= os.getenv("DISCORD_USER_MENTION").lower() in ('true')
 
 high_ping_notifies = False 
-
 class PingMonitor:
     async def get_username_from_id(self, user_id):
         try:
