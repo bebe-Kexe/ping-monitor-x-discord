@@ -46,9 +46,9 @@ Run the script with:
 - Double-click ``start.bat``
   - If this is your first time running it, a ``.env_vars`` file will be created. Open it with a text editor and specify ``DISCORD_TOKEN``, ``CHANNEL_ID``, and ``USER_ID`` (optional).
 
-## 💻 Usage
+## ⚙️ Configuration
 
-Run the script with:
+Edit the following variables in .env_vars to customize your experience:
 
 ```.env_vars
 DISCORD_ENABLED=True #If you want to have discord features enabled (default true)
@@ -103,17 +103,5 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests.
-
-## 🔮 Future Goals
-Planned features and improvements for upcoming releases:
-
-- [x] More user friendly setup and startup
-- [ ] Bot mentions discord user in high ping alert message
-- [ ] Docker container support  
-- [ ] Cross-platform compatibility (Linux, Windows)
-
-Got an idea or feature request? Feel free to open an [issue](https://github.com/bebe-Kexe/ping-monitor-x-discord/issues)
-
----
 
 Made with ❤️ by [Kexe](https://github.com/bebe-Kexe) while waiting for better ping.
